@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xxz.domain.Comment;
 import org.xxz.service.CommentService;
-
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -49,12 +48,10 @@ public class WelcomeController {
     }
     
     
-    
-//    http://localhost:8080//comment?itemId=1
+    //  http://localhost:8080//comment?itemId=1
     @RequestMapping("/comment")
     public String comment(String itemId, ModelMap model) {
         List<Comment> itemComments = commentService.findCommentByItemId(itemId, 1, 10);
-    
     
         /**
          * 对返回的评论结果根据日期 重新排序

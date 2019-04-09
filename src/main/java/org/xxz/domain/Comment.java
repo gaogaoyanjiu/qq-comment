@@ -21,5 +21,5 @@ public class Comment {
     private List<Comment> replyComment; // 评论回复信息
     private Customer customer;// 评论者信息
     private Customer replyCustomer; // 回复评论的人
-
+    private String faceImage; // 回复评论的人的头像
 }

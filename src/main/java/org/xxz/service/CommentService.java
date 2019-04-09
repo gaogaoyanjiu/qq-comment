@@ -66,6 +66,7 @@ public class CommentService {
             Customer customer = customerService.getCustomerByCustomerId(comment.getCustomerId()); // 获取评论人的信息
             c.setCustomer(customer); // 设置评论人的信息
             c.setReplyCustomer(replyCustomer); // 设置回复人的信息
+//            c.setFaceImage("");
             buildReplyComment(c, replys, offset, limit); // 递归调用
         }
     }

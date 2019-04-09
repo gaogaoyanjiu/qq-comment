@@ -13,9 +13,11 @@
 	</select>
 
 	<select id="findReplyCommentByCommentId" resultType="org.xxz.domain.Comment">
-		SELECT tco.* FROM t_comment tco
-		WHERE tco.parent_comment_id = #{parentCommentId}
-		AND tco.state = 0
+	 SELECT tco.*,tcu.* FROM t_comment tco ,t_customer tcu
+	 WHERE tco.parent_comment_id = #{parentCommentId}
+	 AND tco.state = 0
+     AND tco.customer_id=tcu.id
+
 	</select>
 
 </mapper>
