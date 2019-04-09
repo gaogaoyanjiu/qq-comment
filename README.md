@@ -12,7 +12,7 @@
  
 新增评论的SQL：
  
-INSERT INTO t_comment(id,customer_id,parent_comment_id,	content_id,	type,content,comment_date,comment_time,state`)
+INSERT INTO t_comment(id,customer_id,parent_comment_id,	content_id,	type,content,comment_date,comment_time,state)
 VALUES('17',	'3','16','1','1','张飞愿前往,等待主公检阅','2018-12-18','23:16:00','0'	);
 
 
