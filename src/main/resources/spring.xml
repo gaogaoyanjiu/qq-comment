@@ -15,7 +15,7 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd">
        
     
-    <context:component-scan base-package="org.xxz.dao, org.xxz.service" />
+    <context:component-scan base-package="org.xxz" />
     <import resource="classpath*:spring-datasource.xml"/>
 
 </beans>

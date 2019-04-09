@@ -1,7 +1,9 @@
 package org.xxz.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -20,16 +22,28 @@ public class CommentService {
 
     @Resource
     private CustomerService customerService;
-
+    
+    /**
+     * 根据评论对象的Id查询所有评论
+     * @param itemId
+     * @param offset
+     * @param limit
+     * @return
+     */
     public List<Comment> findCommentByItemId(String itemId, int offset, int limit) {
         PageHelper.startPage(offset, limit);
+        
+        //查询出父级评论
         List<Comment> comments = commentDao.findParentCommentByItemId(itemId);
+        
+        
         for (Comment comment : comments) {
-            List<Comment> replys = new ArrayList<Comment>(); // 实例化回复的集合
-            comment.setReplyComment(replys); // 设置评论的回复集合
-            String customerId = comment.getCustomerId(); // 获取评论的人的Id
+            List<Comment> replys = new ArrayList<Comment>();   // 实例化回复的集合
+            comment.setReplyComment(replys);                   // 设置评论的回复集合
+            String customerId = comment.getCustomerId();       // 获取评论的人的Id
             Customer customer = customerService.getCustomerByCustomerId(customerId); // 通过评论人的Id获取评论人的信息
-            comment.setCustomer(customer); // 设置评论的人的信息
+            comment.setCustomer(customer);                     // 设置评论的人的信息
+            
             buildReplyComment(comment, replys, offset, limit); // 构建评论与回复信息
         }
         return comments;
