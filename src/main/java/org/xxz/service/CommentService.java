@@ -38,7 +38,7 @@ public class CommentService {
         
         
         for (Comment comment : comments) {
-            List<Comment> replys = new ArrayList<Comment>();   // 实例化回复的集合
+            List<Comment> replys = new ArrayList<>();   // 实例化回复的集合
             comment.setReplyComment(replys);                   // 设置评论的回复集合
             String customerId = comment.getCustomerId();       // 获取评论的人的Id
             Customer customer = customerService.getCustomerByCustomerId(customerId); // 通过评论人的Id获取评论人的信息
@@ -66,7 +66,6 @@ public class CommentService {
             Customer customer = customerService.getCustomerByCustomerId(comment.getCustomerId()); // 获取评论人的信息
             c.setCustomer(customer); // 设置评论人的信息
             c.setReplyCustomer(replyCustomer); // 设置回复人的信息
-//            c.setFaceImage("");
             buildReplyComment(c, replys, offset, limit); // 递归调用
         }
     }
