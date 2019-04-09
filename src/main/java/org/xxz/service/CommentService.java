@@ -1,18 +1,14 @@
 package org.xxz.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import javax.annotation.Resource;
-
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.xxz.domain.Comment;
 import org.xxz.domain.Customer;
 import org.xxz.mapper.CommentMapper;
 
-import com.github.pagehelper.PageHelper;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -59,7 +55,13 @@ public class CommentService {
     private void buildReplyComment(Comment comment, List<Comment> replys, int offset, int limit) {
         PageHelper.startPage(offset, limit);
         List<Comment> replyComments = commentDao.findReplyCommentByCommentId(comment.getId()); // 获取评论的所有回复
+        // 递归的结束条件是集合长度小于0
+        if(replyComments.size()<0){
+            return;
+        }
+        
         replys.addAll(replyComments); // 把所有的回复添加到评论实例化的回复集合中
+       
         for (Comment c : replyComments) { // 遍历回复中的回复
             String customerId = c.getCustomerId(); // 获取回复人的id
             Customer replyCustomer = customerService.getCustomerByCustomerId(customerId); // 获取回复人信息
