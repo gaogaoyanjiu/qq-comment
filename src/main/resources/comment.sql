@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2019-04-10 03:21:44
+Date: 2019-04-10 15:39:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,6 +43,7 @@ INSERT INTO `t_comment` VALUES ('13', '6', '12', '2', '1', '混账东西，你�
 INSERT INTO `t_comment` VALUES ('14', '8', '10', '2', '1', '主公，我好心救你，你不能这样对我啊，主公！！！', '2018-12-18', '23:13:00', '0');
 INSERT INTO `t_comment` VALUES ('15', '1', '8', '1', '1', '军师所言甚是啊', '2018-12-18', '23:14:00', '0');
 INSERT INTO `t_comment` VALUES ('16', '1', '0', '1', '1', '蜀国10.1号举行大阅兵', '2018-12-18', '23:15:00', '0');
+INSERT INTO `t_comment` VALUES ('17', '3', '16', '1', '1', '张飞愿前往,等待主公检阅', '2018-12-18', '23:16:00', '0');
 INSERT INTO `t_comment` VALUES ('2', '2', '1', '1', '1', '大哥身份显贵，气度不凡啊！！！', '2018-12-18', '23:01:00', '0');
 INSERT INTO `t_comment` VALUES ('3', '3', '1', '1', '1', '翼德愿跟随大哥一统天下。。。', '2018-12-18', '23:02:00', '0');
 INSERT INTO `t_comment` VALUES ('4', '4', '1', '1', '1', '子龙愿意跟随大哥统一天下。。。', '2018-12-18', '23:03:00', '0');
@@ -58,22 +59,29 @@ INSERT INTO `t_comment` VALUES ('9', '2', '8', '1', '1', '军师过奖了，您�
 DROP TABLE IF EXISTS `t_customer`;
 CREATE TABLE `t_customer` (
   `id` varchar(32) NOT NULL,
-  `nick_name` varchar(50) NOT NULL,
-  `face_image` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `username` varchar(20) NOT NULL COMMENT '用户名',
+  `password` varchar(64) NOT NULL COMMENT '密码',
+  `nick_name` varchar(50) DEFAULT NULL COMMENT '昵称',
+  `face_image` varchar(200) DEFAULT NULL COMMENT '头像',
+  `fans_counts` int(11) DEFAULT '0' COMMENT '我的粉丝数量',
+  `follow_counts` int(11) DEFAULT '0' COMMENT '我关注的人总数',
+  `receive_like_counts` int(11) DEFAULT '0' COMMENT '我接受到的赞美/收藏 的数量',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
-INSERT INTO `t_customer` VALUES ('1', '刘备', 'static/img/png/liubei.png');
-INSERT INTO `t_customer` VALUES ('2', '关羽', 'static/img/png/guanyu.png');
-INSERT INTO `t_customer` VALUES ('3', '张飞', 'static/img/png/zhangfei.png');
-INSERT INTO `t_customer` VALUES ('4', '赵云', 'static/img/png/zhaoyun.png');
-INSERT INTO `t_customer` VALUES ('5', '诸葛亮', 'static/img/png/zgl.png');
-INSERT INTO `t_customer` VALUES ('6', '曹操', 'static/img/png/caocao.png');
-INSERT INTO `t_customer` VALUES ('7', '郭嘉', '');
-INSERT INTO `t_customer` VALUES ('8', '华佗', '');
+INSERT INTO `t_customer` VALUES ('1', 'liubie', '123456', '刘备', 'static/img/png/liubei.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('2', 'guanyu', '123456', '关羽', 'static/img/png/guanyu.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('3', 'zhangfei', '123456', '张飞', 'static/img/png/zhangfei.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('4', 'zhaoyun', '123456', '赵云', 'static/img/png/zhaoyun.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('5', 'zhugeliang', '123456', '诸葛亮', 'static/img/png/zgl.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('6', 'caocao', '123456', '曹操', 'static/img/png/caocao.png', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('7', 'guojia', '123456', '郭嘉', '', '1', '0', '0');
+INSERT INTO `t_customer` VALUES ('8', 'huatuo', '123456', '华佗', '', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for t_item
@@ -92,3 +100,35 @@ CREATE TABLE `t_item` (
 INSERT INTO `t_item` VALUES ('1', '蜀国大业', '1');
 INSERT INTO `t_item` VALUES ('2', '魏国大业', '1');
 INSERT INTO `t_item` VALUES ('3', '吴国大业', '1');
+
+-- ----------------------------
+-- Table structure for t_users_fans
+-- ----------------------------
+DROP TABLE IF EXISTS `t_users_fans`;
+CREATE TABLE `t_users_fans` (
+  `id` varchar(64) NOT NULL COMMENT '粉丝表id',
+  `user_id` varchar(64) NOT NULL COMMENT '用户',
+  `fan_id` varchar(64) NOT NULL COMMENT '粉丝',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`fan_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户粉丝关联关系表';
+
+-- ----------------------------
+-- Records of t_users_fans
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_users_like_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_users_like_comment`;
+CREATE TABLE `t_users_like_comment` (
+  `id` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL COMMENT '用户',
+  `comment_id` varchar(64) NOT NULL COMMENT '评论id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_comment_rel` (`user_id`,`comment_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户喜欢的/赞过的评论';
+
+-- ----------------------------
+-- Records of t_users_like_comment
+-- ----------------------------

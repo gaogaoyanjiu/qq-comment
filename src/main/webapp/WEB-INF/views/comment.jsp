@@ -88,6 +88,25 @@
 						<span class="ellipsis">${comment.content}</span>
 					</div>
 				</td>
+
+				<td class="fansTd">
+					<div class="fansDiv">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						 <span>
+								<button onclick="like()">点赞</button>
+							    <button onclick="rmveLike()">取消点赞</button>
+							    <button onclick="follow()">收藏</button>
+						</span>
+
+						<br><br>
+						&nbsp;
+						<span>
+						粉丝数：<c:out value="${comment.customer.fansCounts}" />
+						关注数：<c:out value="${comment.customer.followCounts}" />
+						点赞数：<c:out value="${comment.customer.receiveLikeCounts}" />
+						</span>
+					</div>
+				</td>
 			</tr>
 	    </table >
 
@@ -98,7 +117,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<table class="tab2">
 					<tr >
-						<td style="width:60px;height: 120px">
+						<td style="width:80px;height: 120px">
 								<%--<span class="ellipsis"><img src="static/img/png/guanyu.png" width=64px" height="64px"></span>--%>
 							<span class="ellipsis">
                                 <c:if test="${!empty reply.faceImage}">
@@ -110,10 +129,10 @@
                                 <br/>【${reply.replyCustomer.nickName}】
 						</td>
 
-						<td style="width:60px;">
+						<td style="width:80px;">
 							<b>回复了</b>
 						</td>
-						<td style="width:60px;height: 120px">
+						<td style="width:80px;height: 120px">
 							<span class="ellipsis">
 								 <c:if test="${!empty reply.customer.faceImage}">
 								   <img class="faceImg" src="${reply.customer.faceImage}" width=64px" height="64px"></span>
@@ -133,6 +152,25 @@
 								<span class="ellipsis">${reply.content}</span>
 							</div>
 						</td>
+
+						<td class="fansTd" >
+							<div class="fansDiv">
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								 <span>
+								   <button onclick="like()">点赞</button>
+							       <button onclick="rmveLike()">取消点赞</button>
+							       <button onclick="follow()">收藏</button>
+						       </span>
+								<br><br>
+								&nbsp;
+								<span>
+									粉丝数：<c:out value="${reply.customer.fansCounts}" />
+									关注数：<c:out value="${reply.customer.followCounts}" />
+									点赞数：<c:out value="${reply.customer.receiveLikeCounts}" />
+								</span>
+							</div>
+
+						</td>
 					</tr>
 				</table>
 
@@ -144,14 +182,18 @@
 </body>
 
 <style>
+
+	/* 头像  */
 	.faceImg {
 		border-style: solid;
 		border-width: 2px;
 		border-color: blue rgb(25%,35%,45%) #909090 red;
 		border-radius: 32px;
 	}
+
+	/* 评论 table */
 	.tab1{
-		width: 1200px;
+		width: 1400px;
 		height: 120px;
 		border-style: solid;
 		border-width: 2px;
@@ -159,14 +201,16 @@
 		/*border-radius: 32px;*/
 	}
 
+	/* 回复 table */
 	.tab2{
-		width: 1200px;
+		width: 1400px;
 		height: 120px;
 		border-style: solid;
 		border-width: 2px;
 		border-color: blue rgb(25%,35%,45%) #909090 red;
 		/*border-radius: 32px;*/
 	}
+
 	.sp{
 		width: 100px;
 		height: 10px;
@@ -174,6 +218,26 @@
 		border-width: 2px;
 		border-color: blue rgb(25%,35%,45%) #909090 red;
 		border-radius: 3px;
+	}
+
+	/* 粉丝 评论 点赞 */
+	.fansTd{
+		float: right;
+		width: 240px !important;
+		height: 120px;
+
+		border-style: solid;
+		border-width: 2px;
+		border-color: blue rgb(25%,35%,45%) #909090 red;
+	}
+
+	.fansDiv {
+		margin-top: 35px;
+
+	}
+
+	button{
+		color:blue;
 	}
 	span {
 		cursor: pointer;
@@ -206,7 +270,21 @@
                 getStar(this.getAttribute('star'));
             }
         }
+
     }
+
+    function like() {
+        alert("点赞")
+    }
+
+    function rmveLike() {
+        alert("取消点赞")
+    }
+
+    function follow() {
+        alert("收藏")
+    }
+
 </script>
 
 </html>

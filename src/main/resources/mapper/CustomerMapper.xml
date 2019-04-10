@@ -3,7 +3,7 @@
 <mapper namespace="org.xxz.mapper.CustomerMapper">
 
     <select id="getById" resultType="org.xxz.domain.Customer">
-        SELECT t.id, t.nick_name ,t.face_image from t_customer t where t.id = #{customerId}
+        SELECT t.id,t.username,t.password, t.nick_name ,t.face_image,t.fans_counts,t.follow_counts,t.receive_like_counts from t_customer t where t.id = #{customerId}
     </select>
 
 </mapper>
