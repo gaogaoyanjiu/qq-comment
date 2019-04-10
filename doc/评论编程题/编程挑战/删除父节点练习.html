@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        li{
+            width: 100px;
+            height: 20px;
+            line-height:  20px;
+            position: relative;
+            margin: 10px;
+        }
+        button {
+            position: absolute;
+            right: 3px;
+            top: 1px;
+            height: 20px;
+            /* 隐藏深处按钮 */
+            display: none;
+                    
+        }
+        li:hover button {
+            /* 显示删除按钮 */
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+
+         // 查找父节点的父节点，removeChild 删除当前的父节点
+         //function del(node){
+         //   node.parentNode.parentNode.removeChild(node.parentNode);
+         //}
+		 
+		 // 直接移除父节点
+		 function del(node){
+			node.parentNode.remove();
+		 }
+
+    </script>
+</head>
+<body>
+<ul>
+    <li>内容1<button onclick="del(this)">删除</button></li>
+    <li>内容2<button onclick="del(this)">删除</button></li>
+    <li>内容3<button onclick="del(this)">删除</button></li>
+    <li>内容4<button onclick="del(this)">删除</button></li>
+    <li>内容5<button onclick="del(this)">删除</button></li>
+</ul>
+</body>
+</html>

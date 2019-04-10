@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .con {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        .tou {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background: #a7cbff;
+        }
+        .tou button {
+            float: left;
+        }
+        .tou .ret {
+            float: right;
+        }
+    </style>
+    <script type="text/javascript">
+
+	
+	
+//一、定义vote（）函数，计算票数
+//提示:
+//  1. 取得存放当前票数的的节点的innerText，转为数字并加1。
+//  2. 调用disabled（）函数，禁用按钮。
+//二、定义disabled（）函数，禁用投票按钮
+//提示:
+//  1.改变按钮的disabled 为false。
+//  2.设置一个定时器，10秒后恢复按钮disabled 为false。
+
+
+  
+        // 定义vote函数，计算票数
+        function vote(obj){
+            
+           var total= document.getElementById('total');
+		   
+		   var oldTotal = parseInt(total.innerText);
+		   var newTotal =oldTotal+1;
+           total.innerText=newTotal;
+           
+		   disabled(obj);
+		  
+		   
+        }
+
+        // 定义disabled函数，禁用投票按钮
+       
+	   function disabled (obj){
+			
+			obj.disabled = true;
+            setTimeout(function () {
+                obj.disabled = false;
+            }, 3000);
+	       
+	   }
+
+    </script>
+</head>
+<body>
+<div class="con">投票内容</div>
+<div class="tou">
+    <button onclick="vote(this)">投票</button>
+    <span class="ret">总票数：<span id="total">0</span></span>
+</div>
+</body>
+</html>
